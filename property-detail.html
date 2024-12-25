@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Details - Real Estate Finder</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .property-detail-page {
+            background-color: var(--light-color);
+            padding: 2rem 0;
+        }
+
+        .property-detail-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        .property-images {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .main-image img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+        }
+
+        .image-thumbnails {
+            display: flex;
+            overflow-x: auto;
+            padding: 1rem;
+            gap: 1rem;
+        }
+
+        .image-thumbnails img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform var(--transition-speed);
+        }
+
+        .image-thumbnails img:hover {
+            transform: scale(1.1);
+        }
+
+        .property-info {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 2rem;
+        }
+
+        .property-summary {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--light-color);
+            padding-bottom: 1rem;
+        }
+
+        .price {
+            font-size: 2rem;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .details {
+            display: flex;
+            gap: 1rem;
+            color: var(--dark-color);
+        }
+
+        .property-description,
+        .property-amenities {
+            margin-bottom: 1.5rem;
+        }
+
+        .property-amenities ul {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+            list-style-type: none;
+        }
+
+        .property-amenities ul li::before {
+            content: '✓';
+            color: var(--primary-color);
+            margin-right: 0.5rem;
+        }
+
+        .contact-agent {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 2rem;
+        }
+
+        .contact-agent h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .contact-agent form {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .contact-agent input,
+        .contact-agent textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .contact-agent button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color var(--transition-speed);
+        }
+
+        .contact-agent button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Real Estate Finder</div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="property-listing.html">Properties</a></li>
+                <li><a href="agent-profile.html">Agents</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li class="profile-container" id="profile-section">
+                    <a href="login.html">Login/Register</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="property-detail-page">
+        <div class="property-detail-container">
+            <div class="property-images">
+                <div class="main-image">
+                    <img id="main-property-image" src="" alt="Property Main Image">
+                </div>
+                <div class="image-thumbnails" id="property-thumbnails">
+                    <!-- Thumbnail images will be dynamically added -->
+                </div>
+            </div>
+
+            <div class="property-info">
+                <h1 id="property-title"></h1>
+                <div class="property-summary">
+                    <div class="price">
+                        <i class="fas fa-dollar-sign"></i>
+                        <span id="property-price"></span>
+                    </div>
+                    <div class="details">
+                        <span id="property-bedrooms"></span> Bedrooms
+                        <span id="property-bathrooms"></span> Bathrooms
+                        <span id="property-area"></span> sq ft
+                    </div>
+                </div>
+
+                <div class="property-description">
+                    <h3>Description</h3>
+                    <p id="property-description"></p>
+                </div>
+
+                <div class="property-amenities">
+                    <h3>Amenities</h3>
+                    <ul id="property-amenities-list">
+                        <!-- Amenities will be dynamically added -->
+                    </ul>
+                </div>
+            </div>
+
+            <div class="contact-agent">
+                <h3>Contact Agent</h3>
+                <form id="property-inquiry-form">
+                    <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    <input type="email" id="email" name="email" placeholder="Your Email" required>
+                    <input type="tel" id="phone" name="phone" placeholder="Your Phone Number">
+                    <textarea id="message" name="message" placeholder="I'm interested in this property..." required></textarea>
+                    <button type="submit">Send Inquiry</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="property-listing.html">Properties</a></li>
+                    <li><a href="agent-profile.html">Agents</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@realestatefinder.com</p>
+                <p>Phone: (555) 123-4567</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="#" class="fab fa-facebook"></a>
+                    <a href="#" class="fab fa-twitter"></a>
+                    <a href="#" class="fab fa-instagram"></a>
+                    <a href="#" class="fab fa-linkedin"></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            2024 Real Estate Finder. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY"></script>
+</body>
+</html>

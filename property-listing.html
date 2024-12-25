@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Listings - Real Estate Finder</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .property-search-page {
+            background-color: var(--light-color);
+            padding: 2rem 0;
+        }
+
+        .property-search-container {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 2rem;
+        }
+
+        .search-sidebar {
+            width: 300px;
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .search-sidebar h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .filter-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+
+        .filter-group input,
+        .filter-group select {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .price-inputs {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .search-sidebar button {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color var(--transition-speed);
+        }
+
+        .search-sidebar button:hover {
+            background-color: #2980b9;
+        }
+
+        .property-results {
+            flex-grow: 1;
+        }
+
+        .property-results h2 {
+            color: var(--dark-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 2rem;
+            gap: 1rem;
+        }
+
+        .pagination button {
+            padding: 0.5rem 1rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .pagination button:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Real Estate Finder</div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="property-listing.html">Properties</a></li>
+                <li><a href="agent-profile.html">Agents</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li class="profile-container" id="profile-section">
+                    <a href="login.html">Login/Register</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="property-search-page">
+        <div class="property-search-container">
+            <div class="search-sidebar">
+                <h3>Filter Properties</h3>
+                <form id="advanced-search-form">
+                    <div class="filter-group">
+                        <label>Property Type</label>
+                        <select name="property-type">
+                            <option value="">All Types</option>
+                            <option value="house">House</option>
+                            <option value="apartment">Apartment</option>
+                            <option value="commercial">Commercial</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Location</label>
+                        <input type="text" name="location" placeholder="City or Neighborhood">
+                    </div>
+                    <div class="filter-group">
+                        <label>Price Range</label>
+                        <div class="price-inputs">
+                            <input type="number" name="min-price" placeholder="Min Price">
+                            <input type="number" name="max-price" placeholder="Max Price">
+                        </div>
+                    </div>
+                    <div class="filter-group">
+                        <label>Bedrooms</label>
+                        <select name="bedrooms">
+                            <option value="">Any</option>
+                            <option value="1">1 Bedroom</option>
+                            <option value="2">2 Bedrooms</option>
+                            <option value="3">3 Bedrooms</option>
+                            <option value="4+">4+ Bedrooms</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Bathrooms</label>
+                        <select name="bathrooms">
+                            <option value="">Any</option>
+                            <option value="1">1 Bathroom</option>
+                            <option value="2">2 Bathrooms</option>
+                            <option value="3+">3+ Bathrooms</option>
+                        </select>
+                    </div>
+                    <button type="submit">Apply Filters</button>
+                </form>
+            </div>
+            
+            <div class="property-results">
+                <h2>Available Properties</h2>
+                <div id="properties-grid" class="property-grid">
+                    <!-- Properties will be dynamically populated by JavaScript -->
+                </div>
+                <div class="pagination">
+                    <button id="prev-page" disabled>Previous</button>
+                    <span id="current-page">Page 1</span>
+                    <button id="next-page">Next</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="property-listing.html">Properties</a></li>
+                    <li><a href="agent-profile.html">Agents</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@realestatefinder.com</p>
+                <p>Phone: (555) 123-4567</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="#" class="fab fa-facebook"></a>
+                    <a href="#" class="fab fa-twitter"></a>
+                    <a href="#" class="fab fa-instagram"></a>
+                    <a href="#" class="fab fa-linkedin"></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            2024 Real Estate Finder. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
